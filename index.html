@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sort </title>
+</head>
+
+<body>
+  <input type="number" id="input">
+  <input type="button" value="Add" onclick="add()">
+  <input type="button" value="Sort" onclick="sort()">
+
+  <ul id="boxes">
+  </ul>
+
+  <ul id="sorted">
+  </ul>
+
+  <script>
+    //When the user clicks "Add", a box should be added to the screen.
+    // The box's height and width should equal the user's input.
+    function add() {
+      let input = document.getElementById('input').value;
+      let div = document.createElement("div");
+      div.className = input; // set in class the width, in order to able to sort by this input size
+      div.style.width = `${input}px`;
+      div.style.height = `${input}px`;
+      div.style.background = 'black';
+      div.style.marginBottom = '5px';
+
+      document.getElementById('boxes').appendChild(div);
+    }
+
+    // a sort button which sorts the boxes on the screen by size when it's clicked.
+    function sort() {
+      let divs = document.getElementsByTagName("div");
+      let arrSize = [];
+
+      for (var i = 0; i < divs.length; i++) {
+        arrSize.push(divs[i].getAttribute('class'));
+      }
+
+      arrSize.sort(function (a, b) {
+        return a - b;
+      });
+
+      let sorted = document.getElementById("sorted");
+
+      arrSize.forEach((size) => {
+        for (var i = 0; i < divs.length; i++) {
+          if (size == divs[i].getAttribute('class')) {
+
+            sorted.appendChild(divs[i]);
+          }
+        }
+      });
+
+      let boxs = document.getElementById("boxes");
+      while (boxs.firstChild) {
+        boxs.removeChild(boxs.firstChild);
+      }
+
+    }
+
+
+
+  </script>
+</body>
+
+</html>
